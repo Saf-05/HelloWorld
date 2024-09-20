@@ -1,36 +1,33 @@
 pipeline {
-    agent any
+    agent any  // This tells Jenkins to run the pipeline on any available agent
 
     environment {
-        DOCKER_IMAGE = 'helloworld'
-        DOCKER_TAG = 'latest'
+        DOCKER_IMAGE = 'helloworldweb'  // Change this to the name of your Docker image
     }
 
     stages {
-        stage('Clone Repository') {
+        stage('Build') {
             steps {
-                git 'https://github.com/Saf-05/HelloWorld.git'
-            }
-        }
-
-        stage('Build Docker Image') {
-            steps {
+                echo 'Building Docker Image...'
                 script {
-                    // This will build your Docker image
-                    def dockerImage = docker.build("${DOCKER_IMAGE}:${DOCKER_TAG}")
+                    // Building Docker image from Dockerfile
+                    docker.build(env.DOCKER_IMAGE)
                 }
             }
         }
 
-        stage('Print Docker Image') {
+        stage('Test') {
             steps {
-                script {
-                    // This will print the name and tag of your Docker image
-                    echo "Built Docker Image: ${DOCKER_IMAGE}:${DOCKER_TAG}"
-                }
+                echo 'Running Tests...'
+                // Add commands to run your tests here
             }
         }
 
-        // Add other stages as needed
+        stage('Deploy') {
+            steps {
+                echo 'Deploying...'
+                // Add deployment steps here
+            }
+        }
     }
 }
