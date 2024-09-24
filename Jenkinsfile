@@ -2,7 +2,7 @@ pipeline {
     agent any  
 
     environment {
-        DOCKER_IMAGE = 'helloworldweb'  // name of Docker image
+        DOCKER_IMAGE = 'helloworldweb'  // Change this to the name of your Docker image
     }
 
     stages {
@@ -34,12 +34,14 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Running Tests...'
+                // Add commands to run your tests here
             }
         }
 
         stage('Deploy') {
             steps {
                 echo 'Deploying...'
+                // Add deployment steps here
             }
         }
     }
